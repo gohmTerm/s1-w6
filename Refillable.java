@@ -8,16 +8,27 @@ public class Refillable {
 	
 	// Initialize a Refillable object having initialAmount units.
 	public Refillable (int initialAmount) {
-      myAmount = initialAmount;
-      myUseUpCallCount = 0; 
-	  myTotalUse = 0; 
+		if(initialAmount > 0){
+    		myAmount = initialAmount;
+		}
+		//myUseUpCallCount = 0; 
+		//myTotalUse = 0; 
+
 	}
 	
 	// Use amount units.
 	public void useUp (int amount) {
-    	myAmount = myAmount - amount; 
-		myTotalUse = myTotalUse + amount;
-        myUseUpCallCount = myUseUpCallCount + 1; 
+		if(amount  > 0){
+			if(myAmount <= amount){
+				System.out.println("fuck off");
+				amount = myAmount;
+			}
+			myAmount -= amount;
+			myTotalUse += amount;
+        	myUseUpCallCount ++; 					
+			
+		}
+
 	}
 	
 	// Add amount to the current amount.
@@ -31,6 +42,8 @@ public class Refillable {
 	}
 
 	public double averageUse ( ) {
-  		return myTotalUse / (myUseUpCallCount * 1.0);
+		if(myUseUpCallCount > 0)
+  			return myTotalUse / (myUseUpCallCount * 1.0);
+		return 0;
 	} 
 }
